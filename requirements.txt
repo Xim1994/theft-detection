@@ -1,0 +1,8 @@
+RPi.GPIO==0.7.0
+spidev==3.5
+MFRC522==0.9.0
+requests==2.25.1
+Flask==1.1.2
+python-dotenv==0.15.0
+PyJWT==1.7.1
+email-validator==1.1.2
