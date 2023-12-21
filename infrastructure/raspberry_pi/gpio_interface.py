@@ -19,7 +19,7 @@ class GPIOInterface:
     def read_rfid_sensor(self):
         # This function will block until a RFID tag is present
         try:
-            id, text = self.rfid_reader.read()
+            id, text = self.rfid_reader.read_no_block()
             return id, text
         except Exception as e:
             print("Error reading RFID sensor:", e)
