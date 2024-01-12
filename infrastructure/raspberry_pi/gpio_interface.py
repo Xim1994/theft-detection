@@ -16,6 +16,12 @@ class GPIOInterface:
         # Read and return the value from the PIR sensor pin
         return GPIO.input(pin)
 
+    def setup_led(self, pin):
+        GPIO.setup(pin, GPIO.OUT)
+
+    def set_led_state(self, pin, state):
+        GPIO.output(pin, state)
+
     def read_rfid_sensor(self):
         # This function will block until a RFID tag is present
         try:

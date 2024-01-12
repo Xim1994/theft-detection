@@ -4,8 +4,12 @@ from application.handlers.detection_handler import DetectionHandler
 from infrastructure.raspberry_pi.gpio_interface import GPIOInterface
 from infrastructure.email_service import EmailService
 from infrastructure.api_client import ApiClient
+from gpiozero import MotionSensor
 
 if __name__ == '__main__':
+    pir = MotionSensor(4)
+    pir.wait_for_motion()
+    print("Motion detected!")
     gpio_interface = GPIOInterface()
     email_service = EmailService()
     api_client = ApiClient('https://api.clientdomain.com/')

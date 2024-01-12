@@ -1,7 +1,8 @@
 class Alarm:
-    def __init__(self, id):
+    def __init__(self, id: str, pin: int):
         self.id = id
         self.active = False
+        self.pin = pin
 
     def activate(self):
         self.active = True
