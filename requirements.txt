@@ -6,3 +6,5 @@ Flask
 python-dotenv
 PyJWT
 email-validator
+pyepc
+sendgrid

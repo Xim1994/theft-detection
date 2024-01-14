@@ -4,15 +4,19 @@ from application.handlers.detection_handler import DetectionHandler
 from infrastructure.raspberry_pi.gpio_interface import GPIOInterface
 from infrastructure.email_service import EmailService
 from infrastructure.api_client import ApiClient
-from gpiozero import MotionSensor
+from dotenv import load_dotenv
+import os
 
 if __name__ == '__main__':
-    pir = MotionSensor(4)
-    pir.wait_for_motion()
-    print("Motion detected!")
+    load_dotenv()
+
     gpio_interface = GPIOInterface()
-    email_service = EmailService()
-    api_client = ApiClient('https://api.clientdomain.com/')
+    email_service = EmailService(os.getenv('EMAIL_SERVER'), 465, os.getenv('EMAIL_PASSWORD'))
+    api_client = ApiClient(os.getenv('BROWNIE_API_URL'), os.getenv('BROWNIE_API_TOKEN'))
+
+    product_info = api_client.get_product_info("08434355426222")
+    body = email_service.get_email_body(product_info)
+    email_service.send_email(os.getenv('EMAIL_SENDER'), os.getenv('EMAIL_RECEIVER'), os.getenv('EMAIL_SUBJECT'), body)
 
     # Verificar la conexión WiFi y, si es necesario, iniciar el punto de acceso y el servidor Flask
 
@@ -25,14 +29,8 @@ if __name__ == '__main__':
     # Main loop
     while True:
         detection_handler.handle_detection()
-    
-import time
-import sys
-sys.path.append("..")
-from Library import uhf 
-import RPi.GPIO as GPIO
-from pyepc import decode, SGTIN
 
+'''
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 
@@ -45,10 +43,10 @@ port     ='/dev/ttyS0'
 
 uhf = uhf.UHF(port,baudrate)
 
-'''
+
 Uncomment corresponding section to increase reading range,
 you will have to set the region as per requirment
-'''
+
 
 #uhf.setRegion_EU() 
 #uhf.setRegion_US()
@@ -69,9 +67,8 @@ if rev is not None:
 
    print(f"GTIN: {gtin}")
 
-time.sleep(1)
 uhf.stop_read()
-
+'''
 '''
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
