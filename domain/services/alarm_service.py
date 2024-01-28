@@ -13,4 +13,5 @@ class AlarmService:
 
     def reset_alarm(self, alarm: Alarm):
         # Logic to interface with actual alarm hardware
+        self.gpio_interface.set_led_state(alarm.pin, GPIO.LOW)
         alarm.deactivate()

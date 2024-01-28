@@ -10,6 +10,7 @@ HARD_VERSION  ='0300010004'
 MULTIPLE_READ ='27000322271083'
 SINGLE_READ   ='22000022'
 STOP_READ     ='28000028'
+SET_REGION_EU ='070001030B'
 ###################################################
 class UHF():
     def __init__(self,port,baudrate):
